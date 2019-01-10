@@ -1,0 +1,38 @@
+version: '3.0'
+services:
+  ianseo:
+    image: dendraarchery/ianseo
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      INSTALL: ${INSTALL_IANSEO}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ianseo_data:/var/www/html
+    ports:
+      - 80:80
+
+  mysql:
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ianseo
+      MYSQL_USER: ianseo
+      MYSQL_PASSWORD: ianseo
+      MYSQL_DATABASE: ianseo
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+#  frontend:
+#    image: docker.webgears3d.com/store/frontend
+#    command: ./prod_start.sh
+#    volumes:
+#      - store_public:/frontend/public
+
+volumes:
+  mysql_data:
+  ianseo_data:
+
