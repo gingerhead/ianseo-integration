@@ -9,9 +9,9 @@ services:
       INSTALL: ${INSTALL_IANSEO}
     volumes:
       - mysql_data:/var/lib/mysql
-      - ianseo_data:/var/www/html
+      - ianseo_data:/var/public/ianseo
     ports:
-      - 80:80
+      - 9000:9000
 
   mysql:
     image: mysql:5
@@ -25,6 +25,17 @@ services:
       - mysql_data:/var/lib/mysql
     ports:
       - 5500:3306
+
+  nginx:
+    image: dendraarchery/nginx
+    command: ./wait-for-upstreams.sh nginx -g 'daemon off;'
+    depends_on:
+      - ianseo
+    volumes:
+      - ianseo_data:/var/public
+    ports:
+      - 80:80
+      - 443:443
 
 #  frontend:
 #    image: docker.webgears3d.com/store/frontend
