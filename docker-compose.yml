@@ -29,6 +29,8 @@ services:
   nginx:
     image: dendraarchery/nginx
     command: ./wait-for-upstreams.sh nginx -g 'daemon off;'
+    environment:
+      NGINX_DEV: ${NGINX_DEV}
     depends_on:
       - ianseo
     volumes:
