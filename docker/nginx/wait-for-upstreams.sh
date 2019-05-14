@@ -57,7 +57,7 @@ fi
 
 RESULT=0
 
-wait_for ianseo 9000
+wait_for ianseo 8080
 if [[ $? -ne 0 ]]; then
     RESULT=1
 fi
